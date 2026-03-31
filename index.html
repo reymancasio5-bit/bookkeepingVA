@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reyman Casio | QuickBooks Bookkeeping Virtual Assistant</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <a href="#home" class="nav__logo">
+      <span class="nav__logo-icon">◆</span>
+      <span class="nav__logo-name">REYMAN <strong>CASIO</strong></span>
+    </a>
+    <ul class="nav__links" id="navLinks">
+      <li><a href="#about" class="nav-link">About</a></li>
+      <li><a href="#experience" class="nav-link">Experience</a></li>
+      <li><a href="#projects" class="nav-link">Results</a></li>
+      <li><a href="#services" class="nav-link">Services</a></li>
+      <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+    </ul>
+    <a href="https://drive.google.com/file/d/1eGswpmuk6lnzgBfIxJAAhEriFWydqCfZ/view?usp=sharing" target="_blank" class="btn btn--outline nav__cv">DOWNLOAD CV</a>
+    <button class="nav__hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ══════════════════ HERO ══════════════════ -->
+  <section class="hero" id="home">
+    <div class="hero__photo-bg">
+      <img
+        src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1600&q=80"
+        alt="Bookkeeping background"
+        class="hero__bg-img"
+        loading="eager"
+      />
+      <div class="hero__bg-overlay"></div>
+    </div>
+    <div class="hero__particles" id="particles"></div>
+    <div class="hero__content">
+      <div class="hero__left">
+        <p class="hero__eyebrow reveal">QUICKBOOKS BOOKKEEPING VA</p>
+        <h1 class="hero__title reveal">
+          CLEAN BOOKS.<br/>
+          <span class="hero__title-accent">CLEAR NUMBERS.</span><br/>
+          ZERO STRESS.
+        </h1>
+        <p class="hero__subtitle reveal">I help small business owners stay on top of their finances — accurate records, monthly reports, and a QuickBooks setup that actually works for you.</p>
+        <div class="hero__ctas reveal">
+          <a href="#contact" class="btn btn--primary">Let's Work Together</a>
+          <a href="#services" class="btn btn--ghost">See What I Do</a>
+        </div>
+      </div>
+      <div class="hero__right reveal">
+        <div class="hero__profile">
+          <img
+            src="profile.jpg"
+            alt="Reyman Casio — QuickBooks Bookkeeping VA"
+          />
+          <div class="hero__profile-badge">
+            <i class="fas fa-certificate"></i>&nbsp; QuickBooks Certified
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero__stats">
+      <div class="stat">
+        <span class="stat__num" data-target="2" data-suffix="+">2+</span>
+        <span class="stat__label">Years Experience</span>
+      </div>
+      <div class="stat__divider"></div>
+      <div class="stat">
+        <span class="stat__num" data-target="98" data-suffix="%">98%</span>
+        <span class="stat__label">Bookkeeping Accuracy</span>
+      </div>
+      <div class="stat__divider"></div>
+      <div class="stat">
+        <span class="stat__num" data-target="100" data-suffix="%">100%</span>
+        <span class="stat__label">On-Time Reporting</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ ABOUT ME ══════════════════ -->
+  <section class="section-about">
+    <div class="section-about__inner" id="about">
+      <div class="section-about__text reveal">
+        <span class="section-label">ABOUT ME</span>
+        <h2 class="section-about__heading">Your Books, Done Right —<br/>Every Single Month</h2>
+        <p class="section-about__body">
+          Running a business is hard enough without worrying whether your books are accurate. That's where I come in — I handle your QuickBooks Online bookkeeping so you can focus on what you do best.
+        </p>
+        <p class="section-about__body">
+          From recording daily transactions to delivering clean monthly reports, I make sure your financial records are always organized, up-to-date, and ready when you need them.
+        </p>
+        <p class="section-about__body">
+          With a Finance degree and hands-on experience in reconciliation and financial reporting, I bring real accounting discipline to your books — not just data entry.
+        </p>
+        <p class="about__degree"><a href="https://www.nemsu.edu.ph/academics/colleges/college-of-business-and-management" target="_blank"><i class="fas fa-graduation-cap"></i>&nbsp; BSBA Financial Management &nbsp;·&nbsp; North Eastern Mindanao State University</a></p>
+        <ul class="about__tags">
+          <li>QuickBooks Online</li>
+          <li>Bookkeeping</li>
+          <li>Bank Reconciliation</li>
+          <li>Monthly Reports</li>
+          <li>Catch-Up Bookkeeping</li>
+          <li>Accounts Payable/Receivable</li>
+          <li>Data Accuracy</li>
+        </ul>
+      </div>
+      <div class="section-about__skills reveal">
+        <span class="section-label">TOOLS I USE</span>
+        <div class="skills__icons">
+          <div class="skill-icon">
+            <div class="skill-icon__box">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/7/79/Intuit_QuickBooks_logo.svg"
+                alt="QuickBooks"
+                onerror="this.onerror=null;this.src='';this.parentNode.innerHTML='<span style=\'font-weight:800;font-size:1rem;color:#2CA01C\'>QB</span>'"
+              />
+            </div>
+            <span>QuickBooks Online</span>
+          </div>
+          <div class="skill-icon">
+            <div class="skill-icon__box">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/7/73/Microsoft_Excel_2013-2019_logo.svg"
+                alt="Microsoft Excel"
+              />
+            </div>
+            <span>Excel</span>
+          </div>
+          <div class="skill-icon">
+            <div class="skill-icon__box">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/3/30/Google_Sheets_logo_%282014-2020%29.svg"
+                alt="Google Sheets"
+              />
+            </div>
+            <span>Google Sheets</span>
+          </div>
+          <div class="skill-icon">
+            <div class="skill-icon__box">
+              <img
+                src="https://www.gstatic.com/images/branding/product/2x/apps_script_48dp.png"
+                alt="Google Apps Script"
+              />
+            </div>
+            <span>Apps Script</span>
+          </div>
+        </div>
+        <div class="skills__list-box">
+          <ul>
+            <li><i class="fas fa-check-circle"></i> QuickBooks Online Setup &amp; Management</li>
+            <li><i class="fas fa-check-circle"></i> Monthly Bank &amp; Account Reconciliation</li>
+            <li><i class="fas fa-check-circle"></i> Accounts Payable &amp; Receivable Tracking</li>
+            <li><i class="fas fa-check-circle"></i> Expense Categorization &amp; Tracking</li>
+            <li><i class="fas fa-check-circle"></i> Catch-Up &amp; Cleanup Bookkeeping</li>
+            <li><i class="fas fa-check-circle"></i> Profit &amp; Loss and Balance Sheet Reports</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ EXPERIENCE ══════════════════ -->
+  <section class="section-experience">
+    <div class="section-experience__inner" id="experience">
+      <div class="exp-header reveal">
+        <span class="section-label">EXPERIENCE</span>
+        <h2 class="section-experience__heading">Real Finance Work. Real Results.</h2>
+      </div>
+      <div class="exp-timeline">
+
+        <div class="exp-item reveal">
+          <div class="exp-item__meta">
+            <span class="exp-item__date">2023 – 2024</span>
+            <div class="exp-item__dot exp-item__dot--teal"></div>
+          </div>
+          <div class="exp-item__card">
+            <div class="exp-item__top">
+              <h3 class="exp-item__title">Asset Control Associate</h3>
+              <span class="exp-item__company">Finance &amp; Admin Division</span>
+            </div>
+            <ul class="exp-item__body">
+              <li>Tracked full asset lifecycle — acquisitions, disposals, and transfers — with zero discrepancies in final audit reports</li>
+              <li>Reconciled financial transactions regularly, catching and correcting errors before month-end close</li>
+              <li>Maintained strict compliance with financial policies, ensuring every record was accurate and audit-ready</li>
+            </ul>
+            <div class="exp-item__tags">
+              <span>Asset Tracking</span>
+              <span>Reconciliation</span>
+              <span>Compliance</span>
+              <span>Financial Records</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-item reveal">
+          <div class="exp-item__meta">
+            <span class="exp-item__date">2025 – 2026</span>
+            <div class="exp-item__dot exp-item__dot--blue"></div>
+          </div>
+          <div class="exp-item__card">
+            <div class="exp-item__top">
+              <h3 class="exp-item__title">Finance Associate</h3>
+              <span class="exp-item__company">Six Eleven Global Services</span>
+            </div>
+            <ul class="exp-item__body">
+              <li>Generated and distributed daily merchant settlement reports accurately and on schedule — every time</li>
+              <li>Maintained clean, organized financial records that supported the entire finance team's operations</li>
+              <li>Updated merchant banking data, ensuring smooth daily settlement processes with no errors</li>
+            </ul>
+            <div class="exp-item__tags">
+              <span>Bookkeeping</span>
+              <span>Settlement Reports</span>
+              <span>Bank Reconciliation</span>
+              <span>Finance Support</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ SERVICES ══════════════════ -->
+  <section class="section-services">
+    <div class="section-services__inner" id="services">
+      <div class="reveal">
+        <span class="section-label section-label--center">WHAT I OFFER</span>
+        <h2 class="section-services__heading">Bookkeeping Services That Keep<br/>Your Business Moving</h2>
+      </div>
+      <div class="services-grid">
+        <div class="svc-card reveal">
+          <div class="svc-card__icon"><i class="fas fa-book-open"></i></div>
+          <h3>Monthly Bookkeeping</h3>
+          <p>Consistent, accurate recording of every transaction — so your books are always clean and current.</p>
+        </div>
+        <div class="svc-card reveal">
+          <div class="svc-card__icon"><i class="fas fa-university"></i></div>
+          <h3>Bank Reconciliation</h3>
+          <p>I match your books to your bank statements every month, catching any errors before they become problems.</p>
+        </div>
+        <div class="svc-card reveal">
+          <div class="svc-card__icon"><i class="fas fa-history"></i></div>
+          <h3>Catch-Up &amp; Cleanup</h3>
+          <p>Months (or years) behind? I'll get your books caught up and cleaned up, fast and accurately.</p>
+        </div>
+        <div class="svc-card reveal">
+          <div class="svc-card__icon"><i class="fas fa-chart-line"></i></div>
+          <h3>Monthly Financial Reports</h3>
+          <p>Clear Profit &amp; Loss and Balance Sheet reports delivered monthly — so you always know where you stand.</p>
+        </div>
+        <div class="svc-card reveal">
+          <div class="svc-card__icon"><i class="fas fa-file-invoice-dollar"></i></div>
+          <h3>Accounts Payable &amp; Receivable</h3>
+          <p>Track who owes you and what you owe — no more missed invoices or late payment surprises.</p>
+        </div>
+        <div class="svc-card reveal">
+          <div class="svc-card__icon"><i class="fas fa-cog"></i></div>
+          <h3>QuickBooks Setup &amp; Cleanup</h3>
+          <p>New to QuickBooks? I'll get you set up right. Already using it? I'll clean up what's not working.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ PROJECTS / RESULTS ══════════════════ -->
+  <section class="section-projects">
+    <div class="section-projects__inner" id="projects">
+      <div class="reveal">
+        <span class="section-label">CLIENT RESULTS</span>
+        <p class="projects__sub">REAL BOOKKEEPING IMPACT</p>
+      </div>
+      <div class="projects__grid">
+
+        <div class="proj-card reveal">
+          <div class="proj-card__top">
+            <h3 class="proj-card__title">12-Month Books Cleanup</h3>
+            <span class="proj-card__tag">QuickBooks Online · Chart of Accounts · Reconciliation</span>
+          </div>
+          <div class="proj-card__row">
+            <span class="proj-label">The Problem:</span>
+            <p>A small business owner had 12 months of uncategorized transactions and unreconciled accounts — completely messy books.</p>
+          </div>
+          <div class="proj-card__row">
+            <span class="proj-label">What I Did:</span>
+            <p>Rebuilt the Chart of Accounts, recategorized every transaction, and reconciled all accounts back to a clean state.</p>
+          </div>
+          <div class="proj-card__row">
+            <span class="proj-label">Tools Used:</span>
+            <p>QuickBooks Online · Google Sheets</p>
+          </div>
+          <div class="proj-card__result">
+            <span class="proj-result-label">Outcome:</span>
+            <div class="proj-result-pct">
+              <span class="proj-result-num">100%</span>
+              <span class="proj-result-unit">Books Reconciled</span>
+            </div>
+            <div class="proj-chart"><div class="proj-chart__bar" style="--pct:100%"></div></div>
+          </div>
+        </div>
+
+        <div class="proj-card reveal">
+          <div class="proj-card__top">
+            <h3 class="proj-card__title">Fixed Asset Tracking System</h3>
+            <span class="proj-card__tag">Excel · Advanced Formulas · Reporting</span>
+          </div>
+          <div class="proj-card__row">
+            <span class="proj-label">The Problem:</span>
+            <p>Asset records were scattered across multiple spreadsheets — no audit trail, no central visibility, constant errors.</p>
+          </div>
+          <div class="proj-card__row">
+            <span class="proj-label">What I Did:</span>
+            <p>Built a centralized Excel dashboard with automated reconciliation checks and lifecycle status tracking.</p>
+          </div>
+          <div class="proj-card__row">
+            <span class="proj-label">Tools Used:</span>
+            <p>Excel · Pivot Tables · Conditional Logic</p>
+          </div>
+          <div class="proj-card__result">
+            <span class="proj-result-label">Outcome:</span>
+            <div class="proj-result-pct">
+              <span class="proj-result-num">85%</span>
+              <span class="proj-result-unit">Error Reduction</span>
+            </div>
+            <div class="proj-chart"><div class="proj-chart__bar" style="--pct:85%"></div></div>
+          </div>
+        </div>
+
+        <div class="proj-card reveal">
+          <div class="proj-card__top">
+            <h3 class="proj-card__title">Monthly Reporting System</h3>
+            <span class="proj-card__tag">QuickBooks Online · P&amp;L · Balance Sheet</span>
+          </div>
+          <div class="proj-card__row">
+            <span class="proj-label">The Problem:</span>
+            <p>Business owner had no reliable monthly reports — making financial decisions based on guesswork.</p>
+          </div>
+          <div class="proj-card__row">
+            <span class="proj-label">What I Did:</span>
+            <p>Set up a monthly reporting workflow in QuickBooks delivering P&L, Balance Sheet, and cash flow summaries every month.</p>
+          </div>
+          <div class="proj-card__row">
+            <span class="proj-label">Tools Used:</span>
+            <p>QuickBooks Online · Google Sheets · Email</p>
+          </div>
+          <div class="proj-card__result">
+            <span class="proj-result-label">Outcome:</span>
+            <div class="proj-result-pct">
+              <span class="proj-result-num">90%</span>
+              <span class="proj-result-unit">Time Saved Monthly</span>
+            </div>
+            <div class="proj-chart"><div class="proj-chart__bar" style="--pct:90%"></div></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div id="testimonials">
+      <div class="testimonials__inner reveal">
+        <span class="section-label section-label--center">TESTIMONIALS</span>
+        <div class="testimonials__grid">
+          <div class="testi-card">
+            <div class="testi-card__avatar"><i class="fas fa-user-circle"></i></div>
+            <p>"Reyman cleaned up a whole year of messy books in just two weeks. I finally know exactly where my money is going every month."</p>
+            <span class="testi-name">Small Business Owner · E-commerce</span>
+          </div>
+          <div class="testi-card">
+            <div class="testi-card__avatar"><i class="fas fa-user-circle"></i></div>
+            <p>"His attention to detail in reconciliation is outstanding. Every discrepancy was caught and corrected before it became a real problem."</p>
+            <span class="testi-name">Finance Lead · Asset Control Division</span>
+          </div>
+          <div class="testi-card">
+            <div class="testi-card__avatar"><i class="fas fa-user-circle"></i></div>
+            <p>"I used to dread month-end. Now Reyman sends my reports and everything just makes sense. Worth every penny."</p>
+            <span class="testi-name">Service Business Owner · Freelance Client</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESUME DOWNLOAD -->
+  <section class="resume-section reveal">
+    <span class="section-label section-label--center">RESUME / CV</span>
+    <a href="https://drive.google.com/file/d/1eGswpmuk6lnzgBfIxJAAhEriFWydqCfZ/view?usp=sharing" target="_blank" class="btn btn--download">
+      <i class="fab fa-google-drive"></i> Download My Resume
+    </a>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="cta-banner reveal">
+    <div class="cta-banner__inner">
+      <h2>Ready for books you can trust?</h2>
+      <p>Let me handle the numbers so you can focus on growing your business.</p>
+      <a href="#contact" class="btn btn--primary">Get In Touch Today</a>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section-contact">
+    <div class="contact__left reveal" id="contact">
+      <span class="section-label">LET'S TALK</span>
+      <h2 class="contact__heading">Let's clean up<br/>your books together.</h2>
+      <p class="contact__intro">Whether you're starting fresh, behind on your bookkeeping, or just need someone reliable to take it off your plate — I'm here to help.</p>
+      <div class="contact__links">
+        <a href="mailto:reymancasio.5@gmail.com" class="contact-link">
+          <i class="fas fa-envelope"></i>
+          reymancasio.5@gmail.com
+        </a>
+        <a href="https://wa.me/+639638291756" target="_blank" class="contact-link">
+          <i class="fab fa-whatsapp"></i>
+          WhatsApp — Quick Response
+        </a>
+        <a href="https://www.linkedin.com/in/reyman-casio-112ba83aa?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" class="contact-link">
+          <i class="fab fa-linkedin"></i>
+          LinkedIn Profile
+        </a>
+      </div>
+    </div>
+    <form class="contact__form reveal" id="contactForm">
+      <input type="text" placeholder="Your Name" class="form-input" required/>
+      <input type="email" placeholder="Your Email" class="form-input" required/>
+      <input type="text" placeholder="Business Name (optional)" class="form-input"/>
+      <textarea placeholder="Tell me about your bookkeeping needs..." class="form-input form-textarea" rows="4" required></textarea>
+      <button type="submit" class="btn btn--primary btn--full">Send Message</button>
+    </form>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__col">
+      <p class="footer__name">Reyman Casio</p>
+      <p class="footer__role">QuickBooks Bookkeeping Virtual Assistant</p>
+      <p class="footer__email">reymancasio.5@gmail.com</p>
+    </div>
+    <div class="footer__col">
+      <p class="footer__heading">Services</p>
+      <ul>
+        <li>Monthly Bookkeeping</li>
+        <li>Bank Reconciliation</li>
+        <li>Catch-Up &amp; Cleanup</li>
+        <li>Financial Reports</li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <p class="footer__heading">Connect</p>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/reyman-casio-112ba83aa?utm_source=share_via&utm_content=profile&utm_medium=member_android"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+        <li><a href="https://web.facebook.com/reyman.casio.5"><i class="fab fa-facebook"></i> Facebook</a></li>
+        <li><a href="https://wa.me/+639638291756"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+      </ul>
+    </div>
+    <div class="footer__bottom">
+      <p>Copyright &copy; 2026 Reyman Casio · QuickBooks Bookkeeping VA</p>
+      <a href="#home">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Float -->
+  <a href="https://wa.me/+639638291756" target="_blank" class="wa-float" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <script src="script.js"></script>
+</body>
+</html>
