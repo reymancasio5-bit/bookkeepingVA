@@ -48,9 +48,9 @@
       <div class="hero__left">
         <p class="hero__eyebrow reveal">QUICKBOOKS BOOKKEEPING VA</p>
         <h1 class="hero__title reveal">
-          CLEAN BOOKS.<br/>
-          <span class="hero__title-accent">CLEAR NUMBERS.</span><br/>
-          ZERO STRESS.
+          CLEAN BOOKS<br/>
+          <span class="hero__title-accent">CLEAR NUMBERS</span><br/>
+          ZERO STRESS
         </h1>
         <p class="hero__subtitle reveal">I help small business owners stay on top of their finances — accurate records, monthly reports, and a QuickBooks setup that actually works for you.</p>
         <div class="hero__ctas reveal">
@@ -71,19 +71,21 @@
       </div>
     </div>
     <div class="hero__stats">
-      <div class="stat">
-        <span class="stat__num" data-target="2" data-suffix="+">2+</span>
-        <span class="stat__label">Years Experience</span>
-      </div>
-      <div class="stat__divider"></div>
-      <div class="stat">
-        <span class="stat__num" data-target="98" data-suffix="%">98%</span>
-        <span class="stat__label">Bookkeeping Accuracy</span>
-      </div>
-      <div class="stat__divider"></div>
-      <div class="stat">
-        <span class="stat__num" data-target="100" data-suffix="%">100%</span>
-        <span class="stat__label">On-Time Reporting</span>
+      <div class="hero__stats__inner">
+        <div class="stat">
+          <span class="stat__num" data-target="2" data-suffix="+">2+</span>
+          <span class="stat__label">Years Experience</span>
+        </div>
+        <div class="stat__divider"></div>
+        <div class="stat">
+          <span class="stat__num" data-target="98" data-suffix="%">98%</span>
+          <span class="stat__label">Bookkeeping Accuracy</span>
+        </div>
+        <div class="stat__divider"></div>
+        <div class="stat">
+          <span class="stat__num" data-target="100" data-suffix="%">100%</span>
+          <span class="stat__label">On-Time Reporting</span>
+        </div>
       </div>
     </div>
   </section>
@@ -395,9 +397,14 @@
   <!-- RESUME DOWNLOAD -->
   <section class="resume-section reveal">
     <span class="section-label section-label--center">RESUME / CV</span>
-    <a href="https://drive.google.com/file/d/1eGswpmuk6lnzgBfIxJAAhEriFWydqCfZ/view?usp=sharing" target="_blank" class="btn btn--download">
-      <i class="fab fa-google-drive"></i> Download My Resume
-    </a>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;">
+      <a href="https://drive.google.com/file/d/1eGswpmuk6lnzgBfIxJAAhEriFWydqCfZ/view?usp=sharing" target="_blank" class="btn btn--download">
+        <i class="fab fa-google-drive"></i> Download My Resume
+      </a>
+      <a href="https://drive.google.com/drive/folders/YOUR_CERTIFICATE_FOLDER_ID" target="_blank" class="btn btn--cert">
+        <i class="fas fa-certificate"></i> View My Certificates
+      </a>
+    </div>
   </section>
 
   <!-- CTA BANNER -->
@@ -416,7 +423,7 @@
       <h2 class="contact__heading">Let's clean up<br/>your books together.</h2>
       <p class="contact__intro">Whether you're starting fresh, behind on your bookkeeping, or just need someone reliable to take it off your plate — I'm here to help.</p>
       <div class="contact__links">
-        <a href="mailto:reymancasio.5@gmail.com" class="contact-link">
+        <a href="mailto:reymancasio.5@gmail.com?subject=Inquiry&body=Hello Reyman," class="contact-link">
           <i class="fas fa-envelope"></i>
           reymancasio.5@gmail.com
         </a>
@@ -430,12 +437,17 @@
         </a>
       </div>
     </div>
-    <form class="contact__form reveal" id="contactForm">
-      <input type="text" placeholder="Your Name" class="form-input" required/>
-      <input type="email" placeholder="Your Email" class="form-input" required/>
-      <input type="text" placeholder="Business Name (optional)" class="form-input"/>
-      <textarea placeholder="Tell me about your bookkeeping needs..." class="form-input form-textarea" rows="4" required></textarea>
-      <button type="submit" class="btn btn--primary btn--full">Send Message</button>
+    <form class="contact__form reveal" id="contactForm" novalidate>
+      <!-- Honeypot: hidden from real users, bots fill this -->
+      <input type="text" name="website" id="honeypot" autocomplete="off" tabindex="-1" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;" />
+      <input type="text" name="name" id="formName" placeholder="Your Name" class="form-input" required autocomplete="name"/>
+      <input type="email" name="email" id="formEmail" placeholder="Your Email" class="form-input" required autocomplete="email"/>
+      <input type="text" name="business" id="formBusiness" placeholder="Business Name (optional)" class="form-input" autocomplete="organization"/>
+      <textarea name="message" id="formMessage" placeholder="Tell me about your bookkeeping needs..." class="form-input form-textarea" rows="4" required></textarea>
+      <div id="formError" style="display:none;font-size:0.82rem;color:#ff6b6b;margin-top:-8px;"></div>
+      <button type="submit" class="btn btn--primary btn--full" id="formSubmitBtn" disabled>
+        <span id="formBtnText">Please wait… <span id="formCountdown">12</span>s</span>
+      </button>
     </form>
   </section>
 
