@@ -150,23 +150,112 @@ const counterObs = new IntersectionObserver((entries) => {
 }, { threshold: 0.6 });
 document.querySelectorAll('.stat__num[data-target]').forEach(el => counterObs.observe(el));
 
-// ── CONTACT FORM (demo feedback)
-const form = document.getElementById('contactForm');
-if (form) {
-  form.addEventListener('submit', (e) => {
+// ── CONTACT FORM — Bot protection + Google Sheets via Apps Script proxy
+(function initContactForm() {
+  const form      = document.getElementById('contactForm');
+  if (!form) return;
+
+  const submitBtn    = document.getElementById('formSubmitBtn');
+  const btnText      = document.getElementById('formBtnText');
+  const countdown    = document.getElementById('formCountdown');
+  const errorBox     = document.getElementById('formError');
+
+  // ── 1. Countdown timer before enabling submit (10–15s, randomised)
+  const DELAY = Math.floor(Math.random() * 6) + 10; // 10–15 seconds
+  let remaining = DELAY;
+  countdown.textContent = remaining;
+
+  const timer = setInterval(() => {
+    remaining--;
+    if (remaining <= 0) {
+      clearInterval(timer);
+      submitBtn.disabled = false;
+      btnText.textContent = 'Send Message';
+    } else {
+      countdown.textContent = remaining;
+    }
+  }, 1000);
+
+  // ── 2. Email format validation helper
+  function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim());
+  }
+
+  function showError(msg) {
+    errorBox.textContent = msg;
+    errorBox.style.display = 'block';
+  }
+  function clearError() {
+    errorBox.textContent = '';
+    errorBox.style.display = 'none';
+  }
+
+  // ── 3. Google Apps Script Web App URL
+  // IMPORTANT: Replace the value below with YOUR deployed Apps Script Web App URL.
+  // The Google Sheet ID is stored server-side in the Apps Script — NOT exposed here.
+  // Deploy steps: Extensions → Apps Script → Deploy → New Deployment → Web App
+  //               Execute as: Me | Who has access: Anyone → Copy the URL below.
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec';
+
+  // ── 4. Form submit handler
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const btn = form.querySelector('button[type="submit"]');
-    const orig = btn.textContent;
-    btn.textContent = '✓ Message Sent';
-    btn.style.background = 'var(--teal)';
-    btn.style.color      = 'var(--dark-0)';
-    btn.disabled = true;
-    setTimeout(() => {
-      btn.textContent  = orig;
-      btn.style.background = '';
-      btn.style.color      = '';
-      btn.disabled = false;
+    clearError();
+
+    // Honeypot check — bots fill the hidden field
+    const honeypot = document.getElementById('honeypot');
+    if (honeypot && honeypot.value.trim() !== '') {
+      // Silent fail for bots — fake success
+      btnText.textContent = '✓ Message Sent';
+      submitBtn.style.background = 'var(--teal)';
+      submitBtn.style.color = 'var(--dark-0)';
+      submitBtn.disabled = true;
+      return;
+    }
+
+    const name    = document.getElementById('formName').value.trim();
+    const email   = document.getElementById('formEmail').value.trim();
+    const business = document.getElementById('formBusiness').value.trim();
+    const message = document.getElementById('formMessage').value.trim();
+
+    // Basic field validation
+    if (!name) { showError('Please enter your name.'); return; }
+    if (!email) { showError('Please enter your email address.'); return; }
+    if (!isValidEmail(email)) { showError('Please enter a valid email address (e.g. name@example.com).'); return; }
+    if (!message) { showError('Please tell me about your bookkeeping needs.'); return; }
+
+    // Disable button while sending
+    submitBtn.disabled = true;
+    const origText = btnText.textContent;
+    btnText.textContent = 'Sending…';
+
+    try {
+      const payload = new FormData();
+      payload.append('name', name);
+      payload.append('email', email);
+      payload.append('business', business);
+      payload.append('message', message);
+      payload.append('submitted_at', new Date().toISOString());
+
+      await fetch(APPS_SCRIPT_URL, { method: 'POST', body: payload, mode: 'no-cors' });
+
+      // no-cors means we can't read the response body — treat as success
+      btnText.textContent = '✓ Message Sent';
+      submitBtn.style.background = 'var(--teal)';
+      submitBtn.style.color = 'var(--dark-0)';
       form.reset();
-    }, 3200);
+
+      setTimeout(() => {
+        btnText.textContent = 'Send Message';
+        submitBtn.style.background = '';
+        submitBtn.style.color = '';
+        submitBtn.disabled = false;
+      }, 3200);
+
+    } catch (err) {
+      showError('Something went wrong. Please try again or contact me directly.');
+      btnText.textContent = origText;
+      submitBtn.disabled = false;
+    }
   });
-}
+})();
