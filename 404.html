@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Redirecting...</title>
+  <script>
+    (function () {
+      var path = window.location.pathname;
+
+      // normalize path to lowercase
+      var lowerPath = path.toLowerCase();
+
+      // if user entered lowercase version
+      if (lowerPath === "/bookkeepingva/" || lowerPath === "/bookkeepingva") {
+        window.location.replace("/bookkeepingVA/");
+      }
+    })();
+  </script>
+</head>
+<body>
+  <p>Redirecting...</p>
+</body>
+</html>
