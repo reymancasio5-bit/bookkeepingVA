@@ -238,7 +238,7 @@ document.querySelectorAll('.stat__num[data-target]').forEach(el => counterObs.ob
       payload.append('submitted_at', new Date().toISOString());
       payload.append('token', 'rk_bk_2026_secure');
 
-      await fetch(APPS_SCRIPT_URL, { method: 'POST', body: payload });
+      const res = await fetch(APPS_SCRIPT_URL, { method: 'POST', body: payload });
 
       const data = await res.json();
 
