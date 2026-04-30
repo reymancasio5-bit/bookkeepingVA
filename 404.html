@@ -5,14 +5,12 @@
   <title>Redirecting...</title>
   <script>
     (function () {
+      var origin = window.location.origin;
       var path = window.location.pathname;
-
-      // normalize path to lowercase
       var lowerPath = path.toLowerCase();
 
-      // if user entered lowercase version
       if (lowerPath === "/bookkeepingva/" || lowerPath === "/bookkeepingva") {
-        window.location.replace("/bookkeepingVA/");
+        window.location.replace(origin + "/bookkeepingVA/");
       }
     })();
   </script>
