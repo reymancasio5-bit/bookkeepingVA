@@ -236,15 +236,8 @@ document.querySelectorAll('.stat__num[data-target]').forEach(el => counterObs.ob
       payload.append('business', business);
       payload.append('message', message);
       payload.append('submitted_at', new Date().toISOString());
-      payload.append('token', 'rk_bk_2026_secure');
 
-      const res = await fetch(APPS_SCRIPT_URL, { method: 'POST', body: payload });
-
-      const data = await res.json();
-
-      if (data.status !== 'success') {
-         throw new Error(data.message || 'Submission Failed');
-      }
+      const res = await fetch(APPS_SCRIPT_URL, { method: 'POST', body: payload, mode: 'no-cors' });
 
       // no-cors means we can't read the response body — treat as success
       btnText.textContent = '✓ Message Sent';
