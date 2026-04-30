@@ -195,7 +195,7 @@ document.querySelectorAll('.stat__num[data-target]').forEach(el => counterObs.ob
   // The Google Sheet ID is stored server-side in the Apps Script — NOT exposed here.
   // Deploy steps: Extensions → Apps Script → Deploy → New Deployment → Web App
   //               Execute as: Me | Who has access: Anyone → Copy the URL below.
-  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec';
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxVl7iNr-dQOeNKIvtvcBCRWzb_treqxiAW9ogThnd5fTrbxpV7odLr1LkbFFb8KLHu/exec';
 
   // ── 4. Form submit handler
   form.addEventListener('submit', async (e) => {
