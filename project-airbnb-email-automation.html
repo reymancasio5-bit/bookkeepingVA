@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Airbnb Statement Email Automation · Reyman Casio</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="icon" href="favicon.png" type="image/png">
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <a href="index.html#home" class="nav__logo">
+      <span class="nav__logo-icon">◆</span>
+      <span class="nav__logo-name">REYMAN <strong>CASIO</strong></span>
+    </a>
+    <ul class="nav__links" id="navLinks">
+      <li><a href="index.html#about" class="nav-link">About</a></li>
+      <li><a href="index.html#experience" class="nav-link">Experience</a></li>
+      <li><a href="index.html#services" class="nav-link">Services</a></li>
+      <li><a href="index.html#projects" class="nav-link">Results</a></li>
+      <li><a href="index.html#portfolio" class="nav-link">Portfolio</a></li>
+      <li><a href="index.html#testimonials" class="nav-link">Testimonials</a></li>
+      <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+    </ul>
+    <a href="https://drive.google.com/file/d/1k-RLL87hiftzCwfujPA-dUVko5Nbp8wd/view?usp=sharing" target="_blank" class="btn btn--outline nav__cv">DOWNLOAD CV</a>
+    <button class="nav__hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- PROJECT DETAIL CONTENT -->
+  <main>
+    <div class="proj-detail">
+
+      <!-- Back link -->
+      <a href="index.html#portfolio" class="proj-detail__back">
+        <i class="fas fa-arrow-left"></i> Back to Portfolio
+      </a>
+
+      <!-- Hero image -->
+      <div class="proj-detail__hero">
+        <img
+          src="https://images.unsplash.com/photo-1596526131083-e8c633c948d2?auto=format&fit=crop&w=1400&q=80"
+          alt="Airbnb Statement Email Automation"
+        />
+      </div>
+
+      <!-- Title block -->
+      <div class="proj-detail__meta">
+        <span class="proj-detail__category">
+          <i class="fas fa-robot"></i> Workflow Automation
+        </span>
+        <span class="proj-detail__date"><i class="fas fa-calendar-alt"></i> &nbsp;2026</span>
+      </div>
+      <h1 class="proj-detail__title">Airbnb Owner Statement<br/>Email Automation</h1>
+      <p class="proj-detail__intro">
+        A property management company was manually emailing monthly financial statements to over 300 Airbnb property owners — one by one, every single month. The process consumed nearly three weeks of staff time and was highly prone to human error: wrong attachments, missed owners, inconsistent email content. I built a Google Sheets + Apps Script automation that reduced the entire workflow to a single trigger — cutting a 3-week manual process down to 2–5 days.
+      </p>
+
+      <!-- The Problem -->
+      <div class="proj-detail__section">
+        <p class="proj-detail__section-label">
+          <i class="fas fa-exclamation-circle"></i> The Problem
+        </p>
+        <p>
+          Every month, the client's team had to open each owner's statement file, compose a personalized email, attach the correct PDF, and send it manually — repeated 300+ times. With no standardized template and everything done by hand, errors were inevitable: statements sent to the wrong owner, mismatched attachments, inconsistent messaging, and hours of repetitive data entry. The sheer volume meant staff spent roughly three weeks on a task that generated zero additional revenue. They needed a reliable, scalable solution that didn't require technical expertise to operate.
+        </p>
+      </div>
+
+      <!-- What I Did -->
+      <div class="proj-detail__section">
+        <p class="proj-detail__section-label">
+          <i class="fas fa-tasks"></i> What I Did
+        </p>
+        <div class="proj-detail__steps">
+          <div class="proj-detail__step">
+            <span class="proj-detail__step-num">01</span>
+            <div class="proj-detail__step-body">
+              <strong>Google Sheets Owner Database</strong>
+              <p>Designed a structured Google Sheet as the central hub — capturing each owner's full name, property name, email address, and the corresponding statement file path. All data in one place, easy to update monthly.</p>
+            </div>
+          </div>
+          <div class="proj-detail__step">
+            <span class="proj-detail__step-num">02</span>
+            <div class="proj-detail__step-body">
+              <strong>Dynamic Email Template</strong>
+              <p>Built a professional email template that pulls the owner's name and property details directly from the sheet — so every email reads as personally written, with the correct statement summary auto-populated in the body.</p>
+            </div>
+          </div>
+          <div class="proj-detail__step">
+            <span class="proj-detail__step-num">03</span>
+            <div class="proj-detail__step-body">
+              <strong>Automated File Attachment</strong>
+              <p>Configured the script to automatically locate and attach each owner's specific statement file from Google Drive — eliminating the single biggest source of error: wrong attachments sent to the wrong recipient.</p>
+            </div>
+          </div>
+          <div class="proj-detail__step">
+            <span class="proj-detail__step-num">04</span>
+            <div class="proj-detail__step-body">
+              <strong>One-Click Dropdown Trigger</strong>
+              <p>Added a simple dropdown in Column H of the sheet. When staff selects "Send" for any row, Apps Script fires immediately — sending the personalized email with the correct attachment. No coding knowledge required to operate.</p>
+            </div>
+          </div>
+          <div class="proj-detail__step">
+            <span class="proj-detail__step-num">05</span>
+            <div class="proj-detail__step-body">
+              <strong>Send Status Logging</strong>
+              <p>The sheet automatically updates each row with a timestamp and confirmation status after every send — giving the team a clear audit trail of who was contacted and when, with zero manual tracking needed.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tools Used -->
+      <div class="proj-detail__section">
+        <p class="proj-detail__section-label">
+          <i class="fas fa-tools"></i> Tools Used
+        </p>
+        <div class="proj-detail__tools">
+          <span>Google Sheets</span>
+          <span>Google Apps Script</span>
+          <span>Gmail API</span>
+          <span>Google Drive</span>
+        </div>
+      </div>
+
+      <!-- Outcome -->
+      <div class="proj-detail__section">
+        <p class="proj-detail__section-label">
+          <i class="fas fa-chart-line"></i> Outcome
+        </p>
+        <div class="proj-detail__outcome">
+          <div class="proj-detail__outcome-stat">
+            <span class="proj-detail__outcome-num">300+</span>
+            <span class="proj-detail__outcome-label">Owners Automated</span>
+          </div>
+          <div class="proj-detail__outcome-stat">
+            <span class="proj-detail__outcome-num">~85%</span>
+            <span class="proj-detail__outcome-label">Time Reduction</span>
+          </div>
+          <div class="proj-detail__outcome-stat">
+            <span class="proj-detail__outcome-num">3 weeks → 5 days</span>
+            <span class="proj-detail__outcome-label">Monthly Workflow</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Optional gallery — add your own screenshot links here -->
+      <div class="proj-detail__section">
+        <p class="proj-detail__section-label">
+          <i class="fas fa-images"></i> Screenshots
+        </p>
+        <div class="proj-detail__gallery">
+          <img src="automation.png" alt="Email Automation Tracker" />
+          <img src="appscript.png" alt="Apps Script GS Code" />
+        </div>
+      </div>
+
+      <!-- Back CTA -->
+      <div style="margin-top: 48px; padding-top: 36px; border-top: 1px solid var(--border); display: flex; gap: 16px; flex-wrap: wrap;">
+        <a href="index.html#portfolio" class="btn btn--ghost">
+          <i class="fas fa-arrow-left"></i> Back to Portfolio
+        </a>
+        <a href="index.html#contact" class="btn btn--primary">
+          <i class="fas fa-envelope"></i> Work With Me
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__col">
+      <p class="footer__name">Reyman Casio</p>
+      <p class="footer__role">QuickBooks Bookkeeping Virtual Assistant</p>
+      <p class="footer__email">reymancasio.5@gmail.com</p>
+    </div>
+    <div class="footer__col">
+      <p class="footer__heading">Services</p>
+      <ul>
+        <li>Monthly Bookkeeping</li>
+        <li>Bank Reconciliation</li>
+        <li>Catch-Up &amp; Cleanup</li>
+        <li>Financial Reports</li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <p class="footer__heading">Connect</p>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/reyman-casio-112ba83aa"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+        <li><a href="https://web.facebook.com/reyman.casio.5"><i class="fab fa-facebook"></i> Facebook</a></li>
+        <li><a href="https://wa.me/+639638291756"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+      </ul>
+    </div>
+    <div class="footer__bottom">
+      <p>Copyright &copy; 2026 Reyman Casio · QuickBooks Bookkeeping VA</p>
+      <a href="index.html">Back to Home ↑</a>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/+639638291756" target="_blank" class="wa-float" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <script src="script.js"></script>
+</body>
+</html>
