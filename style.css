@@ -576,6 +576,14 @@ img { max-width: 100%; display: block; }
 .proj-detail__section p:not(.proj-detail__section-label) {
   font-size: 0.9rem; color: var(--text-secondary); line-height: 1.8;
 }
+.proj-detail__section-note {
+  margin-top: -4px;
+  margin-bottom: 18px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  font-family: var(--font-mono);
+}
 
 .proj-detail__steps {
   display: flex; flex-direction: column; gap: 12px;

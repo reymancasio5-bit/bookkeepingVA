@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PriceLabs Analytics Dashboard · Reyman Casio</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="icon" href="favicon.png" type="image/png">
+  <style>
+    .screenshot-frame {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: #f3f4f6;
+    }
+    .screenshot-frame img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .privacy-blur {
+      position: absolute;
+      z-index: 2;
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(14px) saturate(0.6);
+      -webkit-backdrop-filter: blur(14px) saturate(0.6);
+      box-shadow: inset 0 0 0 1px rgba(15, 184, 150, 0.12);
+      border-radius: 8px;
+    }
+    .privacy-blur--names {
+      left: 11%;
+      top: 14%;
+      width: 34%;
+      height: 52%;
+    }
+    .proj-detail__gallery img {
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <a href="index.html#home" class="nav__logo">
+      <span class="nav__logo-icon">◆</span>
+      <span class="nav__logo-name">REYMAN <strong>CASIO</strong></span>
+    </a>
+    <ul class="nav__links" id="navLinks">
+      <li><a href="index.html#about" class="nav-link">About</a></li>
+      <li><a href="index.html#experience" class="nav-link">Experience</a></li>
+      <li><a href="index.html#services" class="nav-link">Services</a></li>
+      <li><a href="index.html#projects" class="nav-link">Results</a></li>
+      <li><a href="index.html#portfolio" class="nav-link">Portfolio</a></li>
+      <li><a href="index.html#testimonials" class="nav-link">Testimonials</a></li>
+      <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+    </ul>
+    <a href="https://drive.google.com/file/d/1k-RLL87hiftzCwfujPA-dUVko5Nbp8wd/view?usp=sharing" target="_blank" class="btn btn--outline nav__cv">DOWNLOAD CV</a>
+    <button class="nav__hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <main>
+    <div class="proj-detail">
+      <a href="index.html#portfolio" class="proj-detail__back">
+        <i class="fas fa-arrow-left"></i> Back to Portfolio
+      </a>
+
+      <div class="proj-detail__hero">
+        <img
+          src="assets/projects/pricelabs-dashboard/Pasted Image.png"
+          alt="PriceLabs Analytics Dashboard"
+        />
+      </div>
+
+      <div class="proj-detail__meta">
+        <span class="proj-detail__category">
+          <i class="fas fa-chart-line"></i> Data Analytics
+        </span>
+        <span class="proj-detail__date"><i class="fas fa-calendar-alt"></i> &nbsp;2026</span>
+      </div>
+      <h1 class="proj-detail__title">PriceLabs Analytics<br/>Dashboard</h1>
+      <p class="proj-detail__intro">
+        This project focuses on tracking occupancy, pricing performance, RevPAR, and listing-level health in one centralized dashboard. The goal was to give operators a clear, fast view of what is happening across multiple listings, how each unit compares to benchmarks, and which properties need attention before they impact revenue.
+      </p>
+
+      <div class="proj-detail__section">
+        <p class="proj-detail__section-label">
+          <i class="fas fa-exclamation-circle"></i> The Problem
+        </p>
+        <p>
+          Managing a portfolio of listings without a unified dashboard creates information overload. Occupancy, pricing, and performance benchmarks were spread across different views, making it difficult to quickly see underperforming units or understand which properties are trending below target. The challenge was to turn fragmented operational data into a single decision-making view that is easy to scan at a glance.
+        </p>
+      </div>
+
+      <div class="proj-detail__section">
+        <p class="proj-detail__section-label">
+          <i class="fas fa-tasks"></i> What I Built
+        </p>
+        <div class="proj-detail__steps">
+          <div class="proj-detail__step">
+            <span class="proj-detail__step-num">01</span>
+            <div class="proj-detail__step-body">
+              <strong>Portfolio Overview</strong>
+              <p>Designed a high-level dashboard tracking occupancy, benchmark comparison, listing count, and active versus blocked listings.</p>
+            </div>
+          </div>
+          <div class="proj-detail__step">
+            <span class="proj-detail__step-num">02</span>
+            <div class="proj-detail__step-body">
+              <strong>Listing-Level Performance</strong>
+              <p>Built a listing table that highlights occupancy, RevPAR, and status, allowing quick prioritization of properties that need attention.</p>
+            </div>
+          </div>
+          <div class="proj-detail__step">
+            <span class="proj-detail__step-num">03</span>
+            <div class="proj-detail__step-body">
+              <strong>Benchmark Tracking</strong>
+              <p>Created comparison views for actual vs benchmark occupancy, allowing operators to measure performance over multiple date ranges.</p>
+            </div>
+          </div>
+          <div class="proj-detail__step">
+            <span class="proj-detail__step-num">04</span>
+            <div class="proj-detail__step-body">
+              <strong>Revenue & Booking Insights</strong>
+              <p>Added pricing and booking visuals to review base pricing, recommended base pricing, and 30-day booking pickup against revenue goals.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-detail__section">
+        <p class="proj-detail__section-label">
+          <i class="fas fa-tools"></i> Tools Used
+        </p>
+        <div class="proj-detail__tools">
+          <span>PriceLabs</span>
+          <span>Dashboard Design</span>
+          <span>Data Visualization</span>
+          <span>Portfolio Analytics</span>
+          <span>Revenue Monitoring</span>
+        </div>
+      </div>
+
+      <div class="proj-detail__section">
+        <p class="proj-detail__section-label">
+          <i class="fas fa-chart-line"></i> Outcome
+        </p>
+        <div class="proj-detail__outcome">
+          <div class="proj-detail__outcome-stat">
+            <span class="proj-detail__outcome-num">418</span>
+            <span class="proj-detail__outcome-label">Listings Tracked</span>
+          </div>
+          <div class="proj-detail__outcome-stat">
+            <span class="proj-detail__outcome-num">70.4%</span>
+            <span class="proj-detail__outcome-label">Past 30D Occupancy</span>
+          </div>
+          <div class="proj-detail__outcome-stat">
+            <span class="proj-detail__outcome-num">$634</span>
+            <span class="proj-detail__outcome-label">RevPAR Snapshot</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-detail__section">
+        <p class="proj-detail__section-label">
+          <i class="fas fa-image"></i> Screenshots
+        </p>
+        <p class="proj-detail__section-note">Confidential listing and benchmark details have been intentionally blurred for privacy.</p>
+        <div class="proj-detail__gallery">
+          <div class="screenshot-frame">
+            <img src="assets/projects/pricelabs-dashboard/Pasted Image 2.png" alt="PriceLabs listing dashboard" />
+            <div class="privacy-blur privacy-blur--names" aria-label="Blurred property names"></div>
+          </div>
+          <div class="screenshot-frame">
+            <img src="assets/projects/pricelabs-dashboard/Pasted Image 3.png" alt="PriceLabs occupancy benchmark dashboard" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
