@@ -14,10 +14,13 @@ window.addEventListener('scroll', () => {
 // ── HAMBURGER MENU
 const hamburger = document.getElementById('hamburger');
 const navLinks  = document.getElementById('navLinks');
-hamburger.addEventListener('click', () => {
-  const isOpen = navLinks.classList.toggle('open');
+function setMobileMenuOpen(isOpen) {
+  navLinks.classList.toggle('open', isOpen);
   hamburger.classList.toggle('open', isOpen);
   hamburger.setAttribute('aria-expanded', isOpen);
+}
+hamburger.addEventListener('click', () => {
+  setMobileMenuOpen(!navLinks.classList.contains('open'));
 });
 
 // ── SMOOTH NAV CLICK WITH CORRECT OFFSET
@@ -30,9 +33,7 @@ document.querySelectorAll('.nav-link').forEach(link => {
     if (!href.startsWith('#')) return;
     e.preventDefault();
 
-    navLinks.classList.remove('open'); // close mobile menu
-    hamburger.classList.remove('open');
-    hamburger.setAttribute('aria-expanded', false);
+    setMobileMenuOpen(false);
 
     const target = document.querySelector(href);
     if (!target) return;
@@ -48,9 +49,7 @@ document.querySelectorAll('.nav-link').forEach(link => {
 // Close mobile menu if user clicks outside
 document.addEventListener('click', (e) => {
   if (!nav.contains(e.target)) {
-    navLinks.classList.remove('open');
-    hamburger.classList.remove('open');
-    hamburger.setAttribute('aria-expanded', false);
+    setMobileMenuOpen(false);
   }
 });
 
@@ -84,41 +83,126 @@ const revealObs = new IntersectionObserver((entries) => {
 }, { threshold: 0.1, rootMargin: '0px 0px -32px 0px' });
 revealEls.forEach(el => revealObs.observe(el));
 
-// ── PARTICLES
-(function createParticles() {
-  const container = document.getElementById('particles');
-  if (!container) return;
-  for (let i = 0; i < 28; i++) {
-    const p = document.createElement('div');
-    const size = Math.random() * 3 + 1;
-    p.style.cssText = [
-      `position:absolute`,
-      `width:${size}px`,
-      `height:${size}px`,
-      `border-radius:50%`,
-      `background:rgba(29,233,182,${(Math.random() * 0.35 + 0.08).toFixed(2)})`,
-      `left:${(Math.random() * 100).toFixed(1)}%`,
-      `top:${(Math.random() * 100).toFixed(1)}%`,
-      `animation:fp ${(Math.random() * 8 + 6).toFixed(1)}s ease-in-out infinite`,
-      `animation-delay:${(Math.random() * -10).toFixed(1)}s`,
-    ].join(';');
-    container.appendChild(p);
+// ── STARFIELD BACKGROUND
+(function initStarfield() {
+  const canvas = document.createElement('canvas');
+  const context = canvas.getContext('2d', { alpha: true });
+  if (!context) return;
+
+  canvas.className = 'space-canvas';
+  canvas.setAttribute('aria-hidden', 'true');
+  document.body.prepend(canvas);
+
+  const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let stars = [];
+  let width = 0;
+  let height = 0;
+  let frame = 0;
+  let lastFrame = 0;
+  let startTime = 0;
+  let running = false;
+
+  function randomGenerator(seed) {
+    let value = seed;
+    return () => {
+      value = (value * 16807) % 2147483647;
+      return (value - 1) / 2147483646;
+    };
   }
 
-  // Inject keyframes once
-  if (!document.getElementById('particle-kf')) {
-    const s = document.createElement('style');
-    s.id = 'particle-kf';
-    s.textContent = `
-      @keyframes fp {
-        0%,100% { transform: translate(0,0) scale(1); opacity:0.3; }
-        25%      { transform: translate(14px,-18px) scale(1.2); opacity:0.8; }
-        50%      { transform: translate(-8px,12px) scale(0.85); opacity:0.5; }
-        75%      { transform: translate(-14px,-8px) scale(1.1); opacity:0.65; }
-      }
-    `;
-    document.head.appendChild(s);
+  function resize() {
+    const pixelRatio = Math.min(window.devicePixelRatio || 1, window.innerWidth < 768 ? 1 : 1.25);
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = Math.round(width * pixelRatio);
+    canvas.height = Math.round(height * pixelRatio);
+    context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+    const random = randomGenerator(Math.round(width * 31 + height * 17) || 1);
+    const starCount = width < 768 ? 190 : 440;
+    stars = Array.from({ length: starCount }, () => {
+      const brightness = random();
+      const hue = random() > 0.92 ? (random() > 0.5 ? 205 : 35) : 0;
+      return {
+        x: random() * width,
+        y: random() * height,
+        radius: brightness > 0.985 ? 1.25 + random() * 0.75 : 0.35 + brightness * 0.75,
+        alpha: 0.24 + random() * 0.58,
+        hue,
+        phase: random() * Math.PI * 2,
+        frequency: 0.25 + random() * 0.65,
+        drift: (random() - 0.5) * 0.018,
+        prominent: brightness > 0.985,
+      };
+    });
+    drawStarfield(0);
   }
+
+  function drawStarfield(time) {
+    context.clearRect(0, 0, width, height);
+    const nebulae = [
+      { x: width * 0.18, y: height * 0.32, radius: Math.max(width, height) * 0.42, color: '70,86,170' },
+      { x: width * 0.82, y: height * 0.68, radius: Math.max(width, height) * 0.34, color: '58,103,153' },
+    ];
+    nebulae.forEach((nebula) => {
+      const haze = context.createRadialGradient(nebula.x, nebula.y, 0, nebula.x, nebula.y, nebula.radius);
+      haze.addColorStop(0, `rgba(${nebula.color},0.075)`);
+      haze.addColorStop(1, `rgba(${nebula.color},0)`);
+      context.fillStyle = haze;
+      context.fillRect(0, 0, width, height);
+    });
+    context.save();
+    context.globalCompositeOperation = 'screen';
+    stars.forEach((star) => {
+      const shimmer = 0.72 + Math.sin(time * star.frequency + star.phase) * 0.22;
+      const y = (star.y + time * star.drift + height) % height;
+      const color = star.hue === 0 ? '220,232,255'
+        : star.hue === 205 ? '164,211,255' : '255,225,190';
+      context.beginPath();
+      context.arc(star.x, y, star.radius, 0, Math.PI * 2);
+      context.fillStyle = `rgba(${color},${(star.alpha * shimmer).toFixed(3)})`;
+      context.fill();
+
+      if (star.prominent) {
+        const glow = context.createRadialGradient(star.x, y, 0, star.x, y, star.radius * 5);
+        glow.addColorStop(0, `rgba(${color},${(0.26 * shimmer).toFixed(3)})`);
+        glow.addColorStop(1, `rgba(${color},0)`);
+        context.fillStyle = glow;
+        context.fillRect(star.x - star.radius * 5, y - star.radius * 5, star.radius * 10, star.radius * 10);
+      }
+    });
+    context.restore();
+  }
+
+  function animate(now) {
+    if (!running) return;
+    frame = window.requestAnimationFrame(animate);
+    const frameInterval = width < 768 ? 1000 / 18 : 1000 / 24;
+    if (now - lastFrame < frameInterval) return;
+    lastFrame = now;
+    drawStarfield((now - startTime) / 1000);
+  }
+
+  function updateAnimation() {
+    running = !motionPreference.matches && !document.hidden;
+    if (running) {
+      startTime = performance.now();
+      lastFrame = 0;
+      frame = window.requestAnimationFrame(animate);
+    } else {
+      window.cancelAnimationFrame(frame);
+      drawStarfield(0);
+    }
+  }
+
+  window.addEventListener('resize', resize, { passive: true });
+  document.addEventListener('visibilitychange', updateAnimation);
+  if (motionPreference.addEventListener) {
+    motionPreference.addEventListener('change', updateAnimation);
+  } else {
+    motionPreference.addListener(updateAnimation);
+  }
+  resize();
+  updateAnimation();
 })();
 
 // ── GALLERY LIGHTBOX
