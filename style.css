@@ -1088,8 +1088,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 @media (max-width: 480px) {
   .hero__title { font-size: clamp(2.05rem, 8.7vw, 2.65rem); }
-  .hero__ctas { grid-template-columns: minmax(0, 1fr); max-width: 320px; gap: 10px; }
-  .hero__ctas .btn { font-size: .78rem; padding-inline: 19px; }
+  .hero__ctas { gap: 8px; }
+  .hero__ctas .btn { min-width: 0; font-size: clamp(.6875rem, 3.2vw, .78rem); padding-inline: 8px; white-space: normal; text-align: center; }
   .hero__right { min-height: 300px; }
   .hero__stats__inner { gap: 8px; }
   .stat__num { font-size: 1.65rem; }
