@@ -3,6 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <script>
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const root = document.documentElement;
+      root.classList.add('hero-intro-pending');
+      window.heroIntroFailsafe = window.setTimeout(() => {
+        root.classList.remove('hero-intro-pending');
+      }, 3200);
+    }
+  </script>
   <title>Reyman Casio | QuickBooks Bookkeeping Virtual Assistant</title>
   <link rel="stylesheet" href="style.css"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -36,30 +45,25 @@
 
   <!-- ══════════════════ HERO ══════════════════ -->
   <section class="hero" id="home">
-    <div class="hero__photo-bg">
-      <img
-        src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1600&q=80"
-        alt="Bookkeeping background"
-        class="hero__bg-img"
-        loading="eager"
-      />
-      <div class="hero__bg-overlay"></div>
-    </div>
+    <canvas class="hero__canvas" id="heroScene" aria-hidden="true"></canvas>
+    <div class="hero__atmosphere" aria-hidden="true"></div>
     <div class="hero__content">
       <div class="hero__left">
-        <p class="hero__eyebrow reveal">QUICKBOOKS BOOKKEEPING VA</p>
+        <p class="hero__eyebrow reveal"><span></span> QUICKBOOKS BOOKKEEPING &amp; AUTOMATION</p>
         <h1 class="hero__title reveal">
-          CLEAN BOOKS<br/>
-          <span class="hero__title-accent">CLEAR NUMBERS</span><br/>
-          ZERO STRESS
+          MORE CLARITY.<br/>
+          <span class="hero__title-accent">LESS BUSYWORK.</span>
         </h1>
-        <p class="hero__subtitle reveal">I help small business owners stay on top of their finances — accurate records, monthly reports, and a QuickBooks setup that actually works for you.</p>
+        <p class="hero__subtitle reveal">I keep your books accurate, your reports clear, and the repetitive work off your plate — so you can focus on running your business.</p>
         <div class="hero__ctas reveal">
           <a href="#contact" class="btn btn--primary">Let's Work Together</a>
           <a href="#services" class="btn btn--ghost">See What I Do</a>
         </div>
       </div>
       <div class="hero__right reveal">
+        <div class="hero__orbital-fallback" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </div>
         <div class="hero__profile">
           <img
             src="profile.jpg"
@@ -69,6 +73,10 @@
             <i class="fas fa-certificate"></i>&nbsp; QuickBooks Certified
           </div>
         </div>
+        <button class="hero__motion-control" id="heroMotionControl" type="button" aria-pressed="false" hidden>
+          <i class="fas fa-pause" aria-hidden="true"></i>
+          <span>Pause animation</span>
+        </button>
       </div>
     </div>
     <div class="hero__stats">
@@ -88,6 +96,9 @@
           <span class="stat__label">On-Time Reporting</span>
         </div>
       </div>
+      <a class="hero__scroll" href="#about" aria-label="Scroll to learn more">
+        <span class="hero__scroll-line"></span> SCROLL TO EXPLORE
+      </a>
     </div>
   </section>
 
@@ -539,12 +550,12 @@
     <form class="contact__form reveal" id="contactForm" novalidate>
       <!-- Honeypot: hidden from real users, bots fill this -->
       <input type="text" name="website" id="honeypot" autocomplete="off" tabindex="-1" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;" />
-      <input type="text" name="name" id="formName" placeholder="Your Name" class="form-input" required autocomplete="name"/>
-      <input type="email" name="email" id="formEmail" placeholder="Your Email" class="form-input" required autocomplete="email"/>
-      <input type="text" name="business" id="formBusiness" placeholder="Business Name (optional)" class="form-input" autocomplete="organization"/>
+      <input type="text" name="name" id="formName" placeholder="Your Name" aria-label="Your Name" class="form-input" required autocomplete="name"/>
+      <input type="email" name="email" id="formEmail" placeholder="Your Email" aria-label="Your Email" class="form-input" required autocomplete="email"/>
+      <input type="text" name="business" id="formBusiness" placeholder="Business Name (optional)" aria-label="Business Name (optional)" class="form-input" autocomplete="organization"/>
       <input type="hidden" name="token" value="rk_bk_2026_secure" />
-      <textarea name="message" id="formMessage" placeholder="Tell me about your bookkeeping needs..." class="form-input form-textarea" rows="4" required></textarea>
-      <div id="formError" style="display:none;font-size:0.82rem;color:#ff6b6b;margin-top:-8px;"></div>
+      <textarea name="message" id="formMessage" placeholder="Tell me about your bookkeeping needs..." aria-label="Tell me about your bookkeeping needs..." class="form-input form-textarea" rows="4" required></textarea>
+      <div id="formError" role="alert" style="display:none;font-size:0.82rem;color:#ff6b6b;margin-top:-8px;"></div>
       <button type="submit" class="btn btn--primary btn--full" id="formSubmitBtn" disabled>
         <span id="formBtnText">Please wait… <span id="formCountdown">12</span>s</span>
       </button>
@@ -586,6 +597,9 @@
     <i class="fab fa-whatsapp"></i>
   </a>
 
-  <script src="script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="script.js" defer></script>
+  <script type="module" src="motion.js"></script>
 </body>
 </html>
