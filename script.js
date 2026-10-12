@@ -27,7 +27,7 @@ hamburger.addEventListener('click', () => {
 // CSS scroll-margin-top handles it, but we also intercept
 // clicks so we can close the mobile menu and guarantee
 // the exact offset even if CSS scroll-margin isn't supported.
-document.querySelectorAll('.nav-link').forEach(link => {
+document.querySelectorAll('.nav-link, .hero__ctas a[href^="#"]').forEach(link => {
   link.addEventListener('click', (e) => {
     const href = link.getAttribute('href');
     if (!href.startsWith('#')) return;
