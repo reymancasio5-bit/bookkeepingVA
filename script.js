@@ -42,7 +42,7 @@ document.querySelectorAll('.nav-link').forEach(link => {
     const gap   = 8;
     const top   = target.getBoundingClientRect().top + window.scrollY - navH - gap;
 
-    window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    window.scrollTo({ top: Math.max(0, top), behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
   });
 });
 
@@ -226,8 +226,58 @@ updateActiveNav();
   });
 })();
 
+// Presentation-only transitions between the existing local HTML pages.
+(function initPageTransitions() {
+  const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const animations = new Set();
+  let navigating = false;
+  const animate = (element, frames, options) => {
+    const animation = element.animate(frames, options);
+    animations.add(animation);
+    animation.finished.catch(() => {}).finally(() => animations.delete(animation));
+    return animation;
+  };
+  const reset = () => {
+    animations.forEach(animation => animation.cancel());
+    animations.clear();
+    navigating = false;
+  };
+  window.addEventListener('pageshow', reset);
+  preference.addEventListener('change', () => { if (preference.matches) reset(); });
+  const enter = () => {
+    if (preference.matches || !Element.prototype.animate) return;
+    const detail = document.querySelector('.proj-detail');
+    if (!detail) return;
+    [detail.querySelector('.proj-detail__hero'), detail.querySelector('.proj-detail__meta'),
+      detail.querySelector('.proj-detail__title'), detail.querySelector('.proj-detail__intro')]
+      .filter(Boolean).forEach((element, index) => animate(element,
+        [{ opacity: 0, transform: 'translateY(14px)' }, { opacity: 1, transform: 'translateY(0)' }],
+        { duration: 520, delay: index * 45, easing: 'cubic-bezier(.22,1,.36,1)', fill: 'backwards' }));
+  };
+  // pageshow also fires on restored history entries, where canceled exit effects must stay cleared.
+  window.addEventListener('pageshow', event => { if (!event.persisted) enter(); });
+  document.addEventListener('click', event => {
+    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const link = event.target.closest('a[href]');
+    if (!link || link.hasAttribute('download') || (link.target && link.target !== '_self')) return;
+    const destination = new URL(link.href, location.href);
+    if (destination.origin !== location.origin || !/\.html$/.test(destination.pathname) ||
+        destination.pathname === location.pathname && destination.search === location.search ||
+        preference.matches || !Element.prototype.animate) return;
+    event.preventDefault();
+    if (navigating) return;
+    navigating = true;
+    const exit = animate(document.body, [{ opacity: 1 }, { opacity: 0 }],
+      { duration: 180, easing: 'ease-out', fill: 'forwards' });
+    // A bounded fallback ensures navigation still completes if animation is interrupted.
+    Promise.race([exit.finished.catch(() => {}), new Promise(resolve => setTimeout(resolve, 260))])
+      .then(() => location.assign(destination.href));
+  });
+})();
+
 // ── COUNTER ANIMATION for stat numbers
 function animateCounter(el) {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const raw    = el.getAttribute('data-target');
   const suffix = el.getAttribute('data-suffix') || '';
   const target = parseFloat(raw);
