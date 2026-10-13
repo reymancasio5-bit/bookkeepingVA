@@ -11,7 +11,7 @@ for (const file of fs.readdirSync('.').filter(file => file.endsWith('.html'))) {
     original = original.replace(/        <div class="hero__profile">[\s\S]*?        <\/div>\n        <\/div>/,
       '        <div class="hero__profile-badge">\n          <i class="fas fa-certificate"></i>&nbsp; QuickBooks Certified\n        </div>');
   }
-  if (file === 'project-pricelabs-dashboard.html') {
+  if (file === 'project-pricelabs-dashboard.html' && !original.includes('Back to Portfolio')) {
     const matchingButtons = normalize(fs.readFileSync('project-qbo-cleanup.html')).match(/      <div style="margin-top: 48px;[\s\S]*?      <\/div>/)[0];
     original = original.replace('    </div>\n  </main>', matchingButtons + '\n    </div>\n  </main>');
   }

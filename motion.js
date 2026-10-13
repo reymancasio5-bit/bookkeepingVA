@@ -4,7 +4,7 @@ const sculpture = document.querySelector('.hero__right');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 async function createOrbitalScene() {
-  if (!canvas || !hero || !sculpture || reducedMotion.matches) return;
+  if (!canvas || !hero || !sculpture) return;
   let renderer;
   try {
     // Decoration loads independently; copy and navigation never depend on WebGL.
@@ -100,19 +100,38 @@ async function createOrbitalScene() {
     let inView = false;
     let contextLost = false;
     let animationFrame = 0;
-    let previousFrame = 0;
+    let previousFrame = null;
     let elapsed = 0;
+    const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const pointer = { x: 0, y: 0, targetX: 0, targetY: 0 };
+    const resetPointer = () => { pointer.targetX = 0; pointer.targetY = 0; };
+    hero.addEventListener('pointermove', event => {
+      if (!finePointer.matches || reducedMotion.matches || event.pointerType === 'touch') return;
+      const bounds = hero.getBoundingClientRect();
+      pointer.targetX = Math.max(-1, Math.min(1, (event.clientX - bounds.left) / bounds.width * 2 - 1));
+      pointer.targetY = Math.max(-1, Math.min(1, (event.clientY - bounds.top) / bounds.height * 2 - 1));
+    }, { passive: true });
+    hero.addEventListener('pointerleave', resetPointer);
+    window.addEventListener('blur', resetPointer);
+    finePointer.addEventListener('change', resetPointer);
     const draw = () => renderer.render(scene, camera);
     const canAnimate = () => inView && !document.hidden && !reducedMotion.matches && !contextLost;
     const animate = time => {
       animationFrame = 0;
       if (!canAnimate()) return;
-      if (time - previousFrame >= 1000 / (mobile ? 24 : 30)) {
-        elapsed += previousFrame ? Math.min((time - previousFrame) / 1000, .08) : 0;
+      // Follow the display refresh rate; elapsed time keeps motion consistent on
+      // 60/120Hz screens. Clamp long frames so returning tabs never jump ahead.
+      {
+        const delta = previousFrame === null ? 0 : Math.min((time - previousFrame) / 1000, .05);
+        elapsed += delta;
         previousFrame = time;
-        cage.rotation.y = elapsed * .09;
-        assembly.rotation.y = Math.sin(elapsed * .13) * .13;
-        assembly.rotation.x = .14 + Math.sin(elapsed * .17) * .04;
+        const settle = 1 - Math.exp(-3.5 * delta);
+        pointer.x += (pointer.targetX - pointer.x) * settle;
+        pointer.y += (pointer.targetY - pointer.y) * settle;
+        cage.rotation.y = elapsed * .075;
+        assembly.rotation.y = Math.sin(elapsed * .13) * .10 + pointer.x * .12;
+        assembly.rotation.x = .14 + Math.sin(elapsed * .17) * .035 + pointer.y * .075;
+        assembly.position.y = .22 + Math.sin(elapsed * .65) * (mobile ? .025 : .045);
         core.rotation.y = -elapsed * .045;
         satellites.forEach(({satellite,r,offset,speed}) => {
           const angle = elapsed * speed + offset;
@@ -125,7 +144,12 @@ async function createOrbitalScene() {
     const updateAnimation = () => {
       cancelAnimationFrame(animationFrame);
       animationFrame = 0;
-      previousFrame = 0;
+      previousFrame = null;
+      if (reducedMotion.matches || document.hidden) {
+        resetPointer();
+        pointer.x = 0;
+        pointer.y = 0;
+      }
       if (canAnimate()) animationFrame = requestAnimationFrame(animate);
       else if (inView && !document.hidden && !contextLost) draw();
     };
@@ -152,6 +176,10 @@ async function createOrbitalScene() {
     });
     window.addEventListener('pagehide', () => { cancelAnimationFrame(animationFrame); animationFrame = 0; });
     window.addEventListener('pageshow', updateAnimation);
+    // Place satellites on their tracks even when reduced motion is enabled.
+    satellites.forEach(({ satellite, r, offset }) => {
+      satellite.position.set(Math.cos(offset) * r, Math.sin(offset) * r, 0);
+    });
     resize();
     draw();
     hero.classList.add('has-webgl');
@@ -180,42 +208,64 @@ if (!gsap) {
     console.warn('ScrollTrigger is unavailable; in-view motion has been disabled.');
   }
 
-  const timeline = gsap.timeline({ defaults: { ease: 'power2.out' } });
-  gsap.set('.hero__eyebrow, .hero__title, .hero__subtitle, .hero__ctas, .hero__right, .hero__stats__inner, .hero__scroll', {
+  const compact = window.matchMedia('(max-width: 768px)').matches;
+  const entranceElements = '.hero__eyebrow, .hero__title, .hero__subtitle, .hero__ctas, .hero__right, .hero__stats__inner, .hero__scroll';
+  const revealTweens = [];
+  const timeline = gsap.timeline({ defaults: { ease: 'power3.out', clearProps: 'transform,opacity,visibility' } });
+  gsap.set(entranceElements, {
     autoAlpha: 0,
-    y: 18,
+    y: compact ? 12 : 24,
   });
+  gsap.set('.hero__right', { scale: .97, y: compact ? 10 : 18 });
   timeline
-    .to('.hero__eyebrow', { autoAlpha: 1, y: 0, duration: 0.45 }, 0.08)
-    .to('.hero__title', { autoAlpha: 1, y: 0, duration: 0.62 }, 0.16)
-    .to('.hero__subtitle', { autoAlpha: 1, y: 0, duration: 0.5 }, 0.34)
-    .to('.hero__ctas', { autoAlpha: 1, y: 0, duration: 0.45 }, 0.48)
-    .to('.hero__right, .hero__stats__inner, .hero__scroll', { autoAlpha: 1, y: 0, duration: 0.62 }, 0.2);
+    .to('.hero__eyebrow', { autoAlpha: 1, y: 0, duration: .55 }, .04)
+    .to('.hero__title', { autoAlpha: 1, y: 0, duration: .85 }, .12)
+    .to('.hero__subtitle', { autoAlpha: 1, y: 0, duration: .7 }, .24)
+    .to('.hero__ctas', { autoAlpha: 1, y: 0, duration: .65 }, .34)
+    .to('.hero__right', { autoAlpha: 1, y: 0, scale: 1, duration: 1.15, ease: 'power2.out' }, .1)
+    .to('.hero__stats__inner, .hero__scroll', { autoAlpha: 1, y: 0, duration: .75, stagger: .06 }, .4);
 
   if (ScrollTrigger) {
     document.querySelectorAll('.reveal').forEach((element) => {
       if (hero && hero.contains(element)) return;
-      gsap.fromTo(element, { y: 16 }, {
+      // Anchor targets retain their geometry throughout navigation. Elements
+      // already above the fold stay visible on deep links and restored pages.
+      if (element.getBoundingClientRect().top < window.innerHeight * .92) return;
+      const rowDelay = () => {
+        if (window.innerWidth <= 768) return 0;
+        const top = element.offsetTop;
+        const row = [...element.parentElement.children].filter(sibling =>
+          sibling.classList.contains('reveal') && Math.abs(sibling.offsetTop - top) < 4);
+        return Math.max(0, row.indexOf(element)) * .065;
+      };
+      element.classList.add('is-revealing');
+      const tween = gsap.fromTo(element, { autoAlpha: 0, y: element.id ? 0 : compact ? 10 : 20 }, {
         autoAlpha: 1,
         y: 0,
-        duration: 0.7,
-        ease: 'power2.out',
+        duration: compact ? .55 : .8,
+        delay: rowDelay(),
+        ease: 'power3.out',
+        clearProps: 'transform,opacity,visibility',
+        onComplete: () => element.classList.remove('is-revealing'),
         scrollTrigger: {
           trigger: element,
-          start: 'top 88%',
+          start: 'top 92%',
           once: true,
         },
       });
+      revealTweens.push(tween);
     });
   }
 
   const respectMotionPreference = () => {
     if (!reducedMotion.matches) return;
-    timeline.progress(1);
-    if (ScrollTrigger) {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-    }
-    gsap.set('.reveal', { clearProps: 'all' });
+    timeline.progress(1).kill();
+    revealTweens.forEach(tween => {
+      tween.scrollTrigger?.kill();
+      tween.progress(1).kill();
+    });
+    gsap.set(entranceElements + ', .reveal', { clearProps: 'transform,opacity,visibility' });
+    document.querySelectorAll('.is-revealing').forEach(element => element.classList.remove('is-revealing'));
     window.clearTimeout(window.heroIntroFailsafe);
     document.documentElement.classList.remove('hero-intro-pending');
   };
